@@ -29,7 +29,7 @@ namespace MailBoxModels.Entities
 		public string subject { get; set; }
 		public string message { get; set; }
 
-		public virtual IEnumerable<Message> Messages { get; set; }
+		public virtual ICollection<Message> Messages { get; set; }
 	}
 
 	public class Message

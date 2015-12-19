@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MailBoxModels.Entities;
 
 namespace TestClient
 {
@@ -10,13 +11,15 @@ namespace TestClient
 	{
 		static void Main(string[] args)
 		{
-			TestMessageReceive();
-        }
+			var repo = new MailBoxRepository();
+			TestMessageReceive(repo);
+			TestIssueReadFromDb(repo);
+			TestMessageReadFromDb(repo);
+			Console.ReadKey();
+		}
 
-		public static void TestMessageReceive()
+		public static void TestMessageReceive(MailBoxRepository repo)
 		{
-			var repo = new MailBoxModels.Entities.MailBoxRepository();			
-
 			var list = new List<string>();
 			list.Add("a1@mail.ru");
 			list.Add("a2@mail.ru");
@@ -30,10 +33,29 @@ namespace TestClient
 				.Message("тестовое сообщение");
 
 			repo.CreateIssue(msg);
+
+			TestIssueReadFromDb(repo);
 		}
 
-		public static void TestMessageReadFromDb()
+		public static void TestIssueReadFromDb(MailBoxRepository repo)
 		{
+			var issues = repo.ReadAllIssues();
+			foreach(var i in issues)
+			{
+				Console.WriteLine($"issue {i.issueId} from {i.sender} text {i.subject}");
+				foreach (var m in i.Messages)
+					Console.WriteLine($"to {m.recipient}");
+			}
+		}
+
+		public static void TestMessageReadFromDb(MailBoxRepository repo)
+		{
+			var msgs = repo.ReadAllMessages();
+			
+			foreach (var m in msgs)
+				Console.WriteLine($"message to {m.recipient} from {m.issue.sender}");
+				
+
 
 		}
 	}

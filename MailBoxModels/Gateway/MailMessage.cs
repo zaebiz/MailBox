@@ -26,10 +26,9 @@ namespace MailBoxModels.Gateway
 		//public int templateId { get; set; }
 
 		#region JQuery-like Mail builder methods
-		public MailRequest Create()
+		public MailRequest()
 		{
 			this.sender = "test@uralsibins.ru";
-			return this;
 		}
 
 		public MailRequest Subject(string s)

@@ -40,6 +40,16 @@ namespace MailBoxModels.Entities
 				.Info($"Issue #{issue.issueId} with subject <{request.subject}> for {issue.messageCount} recipients SUCCESSFULLY ADDED");
 		}
 
+		public IEnumerable<MessageIssue> ReadAllIssues()
+		{
+			return _db.Issues.ToList();
+		}
+
+		public IEnumerable<Message> ReadAllMessages()
+		{
+			return _db.Messages.ToList();
+		}
+
 		public void Dispose()
 		{
 			_db.Dispose();
