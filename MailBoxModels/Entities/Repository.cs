@@ -8,13 +8,13 @@ using NLog;
 
 namespace MailBoxModels.Entities
 {
-	class Repository
+	public class Repository
 	{
-		MailBoxEntities db;
+		MailBoxEntitiesOld db;
 
 		public Repository()
 		{
-			db = new MailBoxEntities();
+			db = new MailBoxEntitiesOld();
 		}
 
 		Message CreateMessage(MailMessage msg, MessageIssue issue)

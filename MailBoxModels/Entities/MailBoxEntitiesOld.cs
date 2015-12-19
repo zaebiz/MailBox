@@ -9,9 +9,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MailBoxModels.Entities
 {
-	public class MailBoxEntities : DbContext
+	public class MailBoxEntitiesOld : DbContext
 	{
-		public MailBoxEntities() : base("DbConnection") { }
+		public MailBoxEntitiesOld() : base("DbConnection") { }
 		public DbSet<MessageIssue> Issues { get; set; }
 		public DbSet<Message> Messages { get; set; }		
 	}
