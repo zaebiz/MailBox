@@ -11,10 +11,10 @@ namespace MailBoxModels.Gateway
 	public class MailMessage
 	{
 		[DataMember]
-		public string from { get; set; }
+		public string sender { get; set; }
 
 		[DataMember]
-		public IEnumerable<string> to { get; set; }
+		public string recipient { get; set; }
 
 		[DataMember]
 		public string subject { get; set; }
@@ -22,7 +22,7 @@ namespace MailBoxModels.Gateway
 		[DataMember]
 		public string message { get; set; }
 
-		[DataMember]
-		public int templateId { get; set; }
+		//[DataMember]
+		//public int templateId { get; set; }
 	}
 }

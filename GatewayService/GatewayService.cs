@@ -8,9 +8,14 @@ using MailBoxModels.Gateway;
 
 namespace GatewayService
 {
-	public class GatewayService : MailBoxModels.Gateway.IGateway
+	public class GatewayService : IGateway
 	{
-		public void SendMail(IEnumerable<MailMessage> mailList)
+		public void SendMail(MailMessage msg)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void SendGroupMail(MailMessage msg, List<string> msgList)
 		{
 			throw new NotImplementedException();
 		}
