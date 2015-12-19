@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 namespace MailBoxModels.Gateway
 {
 	[DataContract]
-	public class MailMessage
+	public class MailRequest
 	{
 		[DataMember]
 		public string sender { get; set; }
 
 		[DataMember]
-		public string recipient { get; set; }
+		public List<string> recipientList { get; set; }
 
 		[DataMember]
 		public string subject { get; set; }
@@ -26,31 +26,31 @@ namespace MailBoxModels.Gateway
 		//public int templateId { get; set; }
 
 		#region JQuery-like Mail builder methods
-		public MailMessage Create()
+		public MailRequest Create()
 		{
 			this.sender = "test@uralsibins.ru";
 			return this;
 		}
 
-		public MailMessage Subject(string s)
+		public MailRequest Subject(string s)
 		{
 			this.subject = s;
 			return this;
 		}
 
-		public MailMessage From(string s)
+		public MailRequest From(string s)
 		{
 			this.subject = s;
 			return this;
 		}
 
-		public MailMessage To(string s)
+		public MailRequest To(IEnumerable<string> list)
 		{
-			this.recipient = s;
+			this.recipientList = list.ToList();
 			return this;
 		}
 
-		public MailMessage Message(string s)
+		public MailRequest Message(string s)
 		{
 			this.message = s;
 			return this;

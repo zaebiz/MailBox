@@ -11,9 +11,6 @@ namespace MailBoxModels.Gateway
 	public interface IGateway
 	{
 		[OperationContract]
-		void SendGroupMail(MailMessage msg, List<string> msgList);
-
-		[OperationContract]
-		void SendMail(MailMessage msg);
+		void SendMail(MailRequest msg);
 	}
 }

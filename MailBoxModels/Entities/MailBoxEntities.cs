@@ -20,17 +20,24 @@ namespace MailBoxModels.Entities
 	{
 		[Key]
 		public int issueId { get; set; }
+
 		public DateTime issueDate { get; set; }
 		public int messageCount { get; set; }
 		public string requestIpAdress { get; set; }
 
+		public string sender { get; set; }
+		public string subject { get; set; }
+		public string message { get; set; }
+
 		public virtual IEnumerable<Message> Messages { get; set; }
 	}
 
-	public class Message : MailMessage
+	public class Message
 	{
 		[Key]
-		public int messageId { get; set; }		
+		public int messageId { get; set; }				
+
+		public string recipient { get; set; }
 		public int status { get; set; }
 
 		public int? issueId { get; set; }

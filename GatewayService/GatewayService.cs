@@ -5,19 +5,20 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using MailBoxModels.Gateway;
+using MailBoxModels.Entities;
 
 namespace GatewayService
 {
 	public class GatewayService : IGateway
 	{
-		public void SendMail(MailMessage msg)
+		public void SendMail(MailRequest req)
 		{
-			throw new NotImplementedException();
-		}
+			if (req == null) throw new ArgumentNullException("request");
 
-		public void SendGroupMail(MailMessage msg, List<string> msgList)
-		{
-			throw new NotImplementedException();
+			using (MailBoxRepository db = new MailBoxRepository())
+			{
+				db.CreateIssue(req);
+			}
 		}
 	}
 }

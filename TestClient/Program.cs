@@ -10,16 +10,12 @@ namespace TestClient
 	{
 		static void Main(string[] args)
 		{
-			testRepository();
+			TestMessageReceive();
         }
 
-		public static void testRepository()
+		public static void TestMessageReceive()
 		{
-			var repo = new MailBoxModels.Entities.Repository();
-			var msg = new MailBoxModels.Gateway.MailMessage()
-				.To("to@to.ru")
-				.Subject("тест")
-				.Message("тестовое сообщение");
+			var repo = new MailBoxModels.Entities.MailBoxRepository();			
 
 			var list = new List<string>();
 			list.Add("a1@mail.ru");
@@ -28,8 +24,17 @@ namespace TestClient
 			list.Add("a4@mail.ru");
 			list.Add("a5@mail.ru");
 
-			repo.CreateIssue(msg, null);
-			repo.CreateIssue(msg, list);
+			var msg = new MailBoxModels.Gateway.MailRequest()
+				.To(list)
+				.Subject("тест")
+				.Message("тестовое сообщение");
+
+			repo.CreateIssue(msg);
+		}
+
+		public static void TestMessageReadFromDb()
+		{
+
 		}
 	}
 }
