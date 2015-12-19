@@ -10,11 +10,11 @@ namespace MailBoxModels.Entities
 {
 	public class Repository
 	{
-		MailBoxEntitiesOld db;
+		MailBoxEntities db;
 
 		public Repository()
 		{
-			db = new MailBoxEntitiesOld();
+			db = new MailBoxEntities();
 		}
 
 		Message CreateMessage(MailMessage msg, MessageIssue issue)

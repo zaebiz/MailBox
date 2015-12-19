@@ -17,12 +17,9 @@ namespace TestClient
 		{
 			var repo = new MailBoxModels.Entities.Repository();
 			var msg = new MailBoxModels.Gateway.MailMessage()
-			{
-				message = "тестовое сообщение",
-				subject = "тест",
-				recipient = "a@a.ru",
-				sender = "b@a.ru"
-			};
+				.To("to@to.ru")
+				.Subject("тест")
+				.Message("тестовое сообщение");
 
 			var list = new List<string>();
 			list.Add("a1@mail.ru");
