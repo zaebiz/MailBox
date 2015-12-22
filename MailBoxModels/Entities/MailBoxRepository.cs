@@ -45,9 +45,23 @@ namespace MailBoxModels.Entities
 			return _db.Issues.ToList();
 		}
 
-		public IEnumerable<Message> ReadAllMessages()
+		public IEnumerable<Message> ReadMessages(int count = 0)
 		{
-			return _db.Messages.ToList();
+			var msgList = _db.Messages
+				.Where(m => m.status == 0)
+				.OrderBy(m => m.messageId);
+
+			return (count > 0) ? msgList.Take(count) : msgList;
+		}
+
+		public void UpdateMessageStatus(IEnumerable<int> msgIds)
+		{
+			_db.Messages
+				.Where(m => msgIds.Any(li => li == m.messageId))
+				.ToList()
+				.ForEach(m => m.status = 1);
+
+			_db.SaveChanges();
 		}
 
 		public void Dispose()

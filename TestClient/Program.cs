@@ -12,8 +12,8 @@ namespace TestClient
 		static void Main(string[] args)
 		{
 			var repo = new MailBoxRepository();
-			TestMessageReceive(repo);
-			TestIssueReadFromDb(repo);
+			TestMessageReadFromDb(repo);
+			TestUpdateMessageStatus(repo);
 			TestMessageReadFromDb(repo);
 			Console.ReadKey();
 		}
@@ -50,13 +50,16 @@ namespace TestClient
 
 		public static void TestMessageReadFromDb(MailBoxRepository repo)
 		{
-			var msgs = repo.ReadAllMessages();
+			var msgs = repo.ReadMessages();
 			
 			foreach (var m in msgs)
-				Console.WriteLine($"message to {m.recipient} from {m.issue.sender}");
-				
+				Console.WriteLine($"message to {m.recipient} from {m.issue.sender} status {m.status}");
+		}
 
-
+		public static void TestUpdateMessageStatus(MailBoxRepository repo)
+		{
+			var msgIds = new List<int>() { 1, 3, 7 };
+			repo.UpdateMessageStatus(msgIds);
 		}
 	}
 }
