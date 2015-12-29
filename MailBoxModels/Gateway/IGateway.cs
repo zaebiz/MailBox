@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ServiceModel;
+using MailBoxModels.EmailTemplatesModels;
 
 namespace MailBoxModels.Gateway
 {
@@ -11,6 +12,10 @@ namespace MailBoxModels.Gateway
 	public interface IGateway
 	{
 		[OperationContract]
-		void SendMail(MailRequest msg);
-	}
+		[FaultContract(typeof(EmailRequestFault))]
+		void SendMail(EmailRequest msg);
+
+		[OperationContract]
+		void SendTemplateMail(EmailRequest req, SimpleTemplate templateData);
+    }
 }

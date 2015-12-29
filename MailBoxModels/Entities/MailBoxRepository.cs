@@ -4,7 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MailBoxModels.Gateway;
+using System.Xml.Serialization;
 using NLog;
+using MailBoxModels.EmailTemplatesModels;
+using System.IO;
 
 namespace MailBoxModels.Entities
 {
@@ -17,49 +20,48 @@ namespace MailBoxModels.Entities
 			_db = new MailBoxEntities();
 		}
 
-		Message CreateMessage(string recipient, MessageIssue issue)
+		Email CreateMessage(string recipient, EmailIssue issue, DateTime sendTime)
 		{
 			var email = _db.Messages.Create();
 			email.recipient = recipient;
-			email.status = 0;
+			email.status = (int)MessageStatus.New;
+			email.allowSendTime = sendTime;
 			email.issue = issue;
 
 			return email;
 		}
 
-		public void CreateIssue(MailRequest request)
+		public void CreateIssue(EmailRequest request) 
 		{
-			//var issue = _db.Issues.Create();
 			var issue = Converter.MailRequestToMessageIssue(request);
 
 			foreach (var r in request.recipientList)
-				_db.Messages.Add(CreateMessage(r, issue));
+				_db.Messages.Add(CreateMessage(r, issue, request.allowSendTime));
 
 			_db.SaveChanges();
-			NLog.LogManager.GetCurrentClassLogger()
-				.Info($"Issue #{issue.issueId} with subject <{request.subject}> for {issue.messageCount} recipients SUCCESSFULLY ADDED");
+			MailBoxLog.Instance.Debug($"Issue #{issue.issueId} with subject <{request.subject}> for {issue.messageCount} recipients SUCCESSFULLY ADDED");
 		}
 
-		public IEnumerable<MessageIssue> ReadAllIssues()
+		public IEnumerable<EmailIssue> ReadAllIssues()
 		{
 			return _db.Issues.ToList();
 		}
 
-		public IEnumerable<Message> ReadMessages(int count = 0)
+		public List<Email> ReadMessages(int count = 0)
 		{
-			var msgList = _db.Messages
-				.Where(m => m.status == 0)
+            var msgList = _db.Messages
+				.Where(m => (m.status == (int)MessageStatus.New) && (m.allowSendTime <= DateTime.Now))
 				.OrderBy(m => m.messageId);
 
-			return (count > 0) ? msgList.Take(count) : msgList;
+			return ((count > 0) ? msgList.Take(count) : msgList).ToList();
 		}
 
-		public void UpdateMessageStatus(IEnumerable<int> msgIds)
+		public void UpdateMessageStatus(IEnumerable<int> msgIds, MessageStatus status)
 		{
 			_db.Messages
 				.Where(m => msgIds.Any(li => li == m.messageId))
 				.ToList()
-				.ForEach(m => m.status = 1);
+				.ForEach(m => m.status = (int)status);
 
 			_db.SaveChanges();
 		}

@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TestClient</RootNamespace>
     <AssemblyName>TestClient</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -39,6 +40,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,8 +52,21 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\MailBoxService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\MailBoxService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\MailBoxService\configuration.svcinfo" />
+    <None Include="Service References\MailBoxService\configuration91.svcinfo" />
+    <None Include="Service References\MailBoxService\GatewayService.wsdl" />
+    <None Include="Service References\MailBoxService\service.disco" />
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
@@ -61,12 +77,33 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Service References\MailBoxService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MailBoxService\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MailBoxService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MailBoxService\service3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MailBoxService\service4.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MailBoxModels\MailBoxModels.csproj">
       <Project>{932a1a95-1ff8-4f4d-ba55-bf3fc4f36fc5}</Project>
       <Name>MailBoxModels</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\MailBoxService\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

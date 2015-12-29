@@ -12,11 +12,11 @@ namespace MailBoxModels.Entities
 	public class MailBoxEntities : DbContext
 	{
 		public MailBoxEntities() : base("DbConnection") { }
-		public DbSet<MessageIssue> Issues { get; set; }
-		public DbSet<Message> Messages { get; set; }		
+		public DbSet<EmailIssue> Issues { get; set; }
+		public DbSet<Email> Messages { get; set; }		
 	}
 
-	public class MessageIssue 
+	public class EmailIssue 
 	{
 		[Key]
 		public int issueId { get; set; }
@@ -29,18 +29,19 @@ namespace MailBoxModels.Entities
 		public string subject { get; set; }
 		public string message { get; set; }
 
-		public virtual ICollection<Message> Messages { get; set; }
+		public virtual ICollection<Email> Messages { get; set; }
 	}
 
-	public class Message
+	public class Email
 	{
 		[Key]
 		public int messageId { get; set; }				
 
 		public string recipient { get; set; }
 		public int status { get; set; }
+		public DateTime allowSendTime { get; set; }
 
 		public int? issueId { get; set; }
-		public virtual MessageIssue issue { get; set; }
+		public virtual EmailIssue issue { get; set; }
 	}
 }

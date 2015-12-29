@@ -10,6 +10,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GatewayService", "GatewayService\GatewayService.csproj", "{7412B440-13A4-4905-BD73-99041F85BBC7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestClient", "TestClient\TestClient.csproj", "{B89D32A1-35EC-41AF-9B39-DE4A4376E784}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7412B440-13A4-4905-BD73-99041F85BBC7} = {7412B440-13A4-4905-BD73-99041F85BBC7}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

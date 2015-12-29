@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MailBoxModels.Gateway;
 using System;
+using System.IO;
 
 namespace MailBoxModels.Entities
 {
@@ -8,7 +9,7 @@ namespace MailBoxModels.Entities
 	{
 		static Converter()
 		{
-			Mapper.CreateMap<MailRequest, MessageIssue>()
+			Mapper.CreateMap<EmailRequest, EmailIssue>()
 				.AfterMap((src, dest) =>
 				{
 					dest.messageCount = src.recipientList.Count;
@@ -16,9 +17,20 @@ namespace MailBoxModels.Entities
 				});
 		}
 
-		public static MessageIssue MailRequestToMessageIssue(MailRequest request)
+		public static EmailIssue MailRequestToMessageIssue(EmailRequest request)
 		{
-			return Mapper.Map<MessageIssue>(request);
+			return Mapper.Map<EmailIssue>(request);
+		}
+
+		public static string ToXml<T>(T obj)
+		{
+			var serializer = new System.Xml.Serialization.XmlSerializer(obj.GetType());
+
+			using (StringWriter sw = new StringWriter())
+			{
+				serializer.Serialize(sw, obj);
+				return sw.ToString();
+			}
 		}
 	}
 }
